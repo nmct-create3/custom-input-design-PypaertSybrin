@@ -43,12 +43,21 @@
     --global-color-neutral-900: #35374d;
     --global-color-neutral-950: #20223a;
 
+    /* global input*/
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--global-color-neutral-950);
+
+    --global-input-borderColor: var(--global-color-neutral-100);
+    --global-input-hover-borderColor: var(--global-color-neutral-200);
+    --global-input-focus-borderColor: var(--global-color-primary-500);
+    /* we maken globale variabelen van andere globale variabelen zodat we deze kunnen overschrijven als we een dark theme willen*/
+
     /* border stuff */
     --global-borderRadius: 3px;
     --global-borderWidth: 1px;
 
     /* transitions */
-    --global-transitionTiming-alpha: .1s ease-out;
+    --global-transitionTiming-alpha: .3s ease-out;
 
     /* Baseline settings */
     --global-baseline: .5rem;
@@ -67,6 +76,14 @@
     /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3);
     /*  = 72px */
+}
+
+@media (prefers-color-sheme: dark){
+    :root{
+        --global-input-backgroundColor: var(--global-color-neutral-800);
+        --global-input-color: var(var(--global-color-neutral-050));
+        /* als we in darkmode gaan, zullen deze globale variabelen worden overschreven*/
+    }
 }
 
 /*---------------------------------------/*
@@ -438,6 +455,8 @@ input::placeholder {
     Accessibly hide any element
 */
 
+/* Om een checkbox te hiden. Display: none gaat niet want die verwijderd de checkbox waardie je die niet meer kan checken*/
+
 .o-hide-accessible {
     position: absolute;
     width: 1px;
@@ -556,10 +575,10 @@ input::placeholder {
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    border: var(--global-borderWidth) solid var(--global-color-neutral-100);
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
     border-radius: var(--global-borderRadius);
-    color: var(--global-color-neutral-950);
-    background-color: White;
+    color: var(--global-input-color);
+    background-color: var(--global-input-backgroundColor);
     font-family: inherit;
     font-size: 1rem;
     line-height: calc(var(--global-baseline) * 3);
@@ -568,12 +587,12 @@ input::placeholder {
     transition: border var(--global-transition-timing-alpha);
 
     &:hover {
-        border-color: var(--global-color-neutral-200);
+        border-color: var(--global-input-hover-borderColor);
     }
 
     &:focus,
     &:active {
-        border-color: var(--global-color-primary-500);
+        border-color: var(--global-input-focus-borderColor);
         box-shadow: 0 0 0 3px var(--global-color-primary-500-alpha-30);
     }
 }
@@ -634,6 +653,54 @@ input::placeholder {
         box-shadow: none;
     }
 }
+
+/* custom inputs*/
+/* we kijken of input checked is, zo ja, selecteren we de c-custom-option als die direct volgt op een c-option--hidden die checked is en elke c-custom-option__symbol die in c-custom-option zit selecteren en die fill blue zetten*/
+
+/* .c-option--hidden:checked + .c-custom-option{
+    background-color: hotpink;
+} */
+.c-custom-option{
+    display: flex;
+}
+.c-custom-option__symbol{
+    opacity: 0;
+}
+
+.c-custom-option__fake-input{
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--global-color-neutral-100);
+    margin-right: .5rem;
+    justify-content: center;
+    align-items: center;
+}
+.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol{
+    opacity: 1;
+    transition: var(--global-transitionTiming-alpha);
+    fill: var(--global-color-primary-400);
+}
+
+.c-custom-option__fake-input--checkbox{
+    border-radius: 3px;
+
+    & .c-custom-option__symbol{
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.c-custom-option__fake-input--radio {
+    border-radius: 100%;
+    & .c-custom-option__symbol{
+        width: 6px;
+        height: 6px;
+        border-radius: 100%;
+        background-color: var(--global-color-primary-400);
+    }
+}
+    
 
 /*------------------------------------*\
 #UTILITIES
