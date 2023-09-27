@@ -616,7 +616,8 @@ input::placeholder {
     font-size: .875rem;
     padding-bottom: var(--global-whitespace-xs);
     line-height: calc(var(--global-baseline) * 2);
-    color: var(--global-color-neutral-800);
+    color: var(--label-color, var(--global-color-neutral-800));
+
 }
 
 .c-label--option {
@@ -811,6 +812,11 @@ input::placeholder {
     & .c-password-toggle__symbol--hide{
         opacity: 1;
     }
+}
+
+.has-error{
+    --label-color: red;
+    /* = hoisting: we hebben in c-label al de variabele --label-color al opgeroepen, maar met een default kleur van standaard zwart en als er een error is, krijgt de --label-color een waarde en zo zal hij rood worden want color: var(--label-color, var(--global-color-neutral-800)); heeft als eerste waarde --label-color*/
 }
     
 
