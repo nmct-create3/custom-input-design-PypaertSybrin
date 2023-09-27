@@ -43,15 +43,6 @@
     --global-color-neutral-900: #35374d;
     --global-color-neutral-950: #20223a;
 
-    /* global input*/
-    --global-input-backgroundColor: White;
-    --global-input-color: var(--global-color-neutral-950);
-
-    --global-input-borderColor: var(--global-color-neutral-100);
-    --global-input-hover-borderColor: var(--global-color-neutral-200);
-    --global-input-focus-borderColor: var(--global-color-primary-500);
-    /* we maken globale variabelen van andere globale variabelen zodat we deze kunnen overschrijven als we een dark theme willen*/
-
     /* border stuff */
     --global-borderRadius: 3px;
     --global-borderWidth: 1px;
@@ -59,7 +50,7 @@
     --global-transistion: all .1s ease-out;
 
     /* transitions */
-    --global-transitionTiming-alpha: .3s ease-out;
+    --global-transitionTiming-alpha: .1s ease-out;
 
     /* Baseline settings */
     --global-baseline: .5rem;
@@ -78,13 +69,38 @@
     /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3);
     /*  = 72px */
+
+    /* global input*/
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--global-color-neutral-950);
+
+    --global-input-borderColor: var(--global-color-neutral-100);
+    --global-input-hover-borderColor: var(--global-color-neutral-200);
+    --global-input-focus-borderColor: var(--global-color-primary-500);
+    /* we maken globale variabelen van andere globale variabelen zodat we deze kunnen overschrijven als we een dark theme willen*/
+
+    /* Globale variabelen voor dark theme*/
+    --global-page-color: var(--global-color-neutral-950);
+    --global-page-backgroundColor: var(--global-color-neutral-050);
+    --global-card-color: white;
 }
 
-@media (prefers-color-sheme: dark){
-    :root{
-        --global-input-backgroundColor: var(--global-color-neutral-800);
-        --global-input-color: var(var(--global-color-neutral-050));
-        /* als we in darkmode gaan, zullen deze globale variabelen worden overschreven*/
+@media (prefers-color-scheme: dark){
+    :root {
+        --global-page-color: white;
+        --global-page-backgroundColor: var(--global-color-neutral-950);
+        --global-card-color: var(--global-color-neutral-900);
+        --global-input-backgroundColor: var(--global-color-neutral-950);
+        --global-input-borderColor: var(--global-color-neutral-950);
+        --global-input-hover-borderColor: var(--global-color-primary-500);
+        --global-input-color: var(--global-color-neutral-500);
+        --label-color: var(--global-color-neutral-500);
+        --global-color-password-symbol: var(--global-color-neutral-500);
+    }
+    .c-logo {
+        --logo__path--1--fill: White;
+        --logo__path--2--fill: var(--logo__path--1--fill);
+        --logo__path--3--fill: var(--logo__path--1--fill);
     }
 }
 
@@ -119,8 +135,8 @@ img {
 html {
     line-height: 1.5;
     font-family: "Inter Web", Helvetica, arial, sans-serif;
-    color: var(--global-color-neutral-950);
-    background-color: var(--global-color-neutral-050);
+    color: var(--global-page-color);
+    background-color: var(--global-page-backgroundColor);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -493,15 +509,15 @@ input::placeholder {
 }
 
 .c-logo__path--1 {
-    fill: var(--global-color-neutral-950);
+    fill: var(--logo__path--1--fill, var(--global-color-neutral-950));
 }
 
 .c-logo__path--2 {
-    fill: var(--global-color-primary-500);
+    fill: var(--logo__path--2--fill, var(--global-color-primary-500));
 }
 
 .c-logo__path--3 {
-    fill: var(--global-color-primary-700);
+    fill: var(--logo__path--3--fill, var(--global-color-alpha-primary-700));
 }
 
 /*
@@ -511,7 +527,7 @@ input::placeholder {
 */
 
 .c-card {
-    background-color: White;
+    background-color: var(--global-card-color);
     margin-bottom: var(--global-whitespace);
     border-radius: var(--global-borderRadius);
     box-shadow: 0 0 0 var(--global-borderWidth) rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, .075);
@@ -596,6 +612,12 @@ input::placeholder {
     &:active {
         border-color: var(--global-input-focus-borderColor);
         box-shadow: 0 0 0 3px var(--global-color-primary-500-alpha-30);
+    }
+
+    @media (prefers-color-scheme: dark){
+        &::placeholder{
+            color: var(--global-input-color);
+        }
     }
 }
 
@@ -795,7 +817,7 @@ input::placeholder {
     position: absolute;
     top: .75rem;
     right: .75rem;
-    fill: var(--global-color-neutral-300);
+    fill: var(--global-color-password-symbol, var(--global-color-neutral-300));
 }
 
 .c-password-toggle__symbol--show{
@@ -815,7 +837,7 @@ input::placeholder {
 }
 
 .has-error{
-    --label-color: red;
+    /* --label-color: red; */
     /* = hoisting: we hebben in c-label al de variabele --label-color al opgeroepen, maar met een default kleur van standaard zwart en als er een error is, krijgt de --label-color een waarde en zo zal hij rood worden want color: var(--label-color, var(--global-color-neutral-800)); heeft als eerste waarde --label-color*/
 }
     
