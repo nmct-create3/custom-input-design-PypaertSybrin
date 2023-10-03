@@ -83,6 +83,7 @@
     --global-page-color: var(--global-color-neutral-950);
     --global-page-backgroundColor: var(--global-color-neutral-050);
     --global-card-color: white;
+    --global-border: var(--global-color-neutral-100);
 }
 
 @media (prefers-color-scheme: dark){
@@ -96,6 +97,7 @@
         --global-input-color: var(--global-color-neutral-500);
         --label-color: var(--global-color-neutral-500);
         --global-color-password-symbol: var(--global-color-neutral-500);
+        --global-border: var(--global-page-backgroundColor);
     }
     .c-logo {
         --logo__path--1--fill: White;
@@ -542,7 +544,7 @@ input::placeholder {
 
 .c-card__footer {
     text-align: center;
-    border-top: var(--global-borderWidth) solid var(--global-color-neutral-100);
+    border-top: var(--global-borderWidth) solid var(--global-border);
 }
 
 .c-card__title {
